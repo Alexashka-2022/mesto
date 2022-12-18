@@ -13,3 +13,4 @@
 6. BEM Nested
 
 ## Адрес проекта на GitHubPages
+https://alexashka-2022.github.io/mesto/index.html
