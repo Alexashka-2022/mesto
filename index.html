@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pages/index.css">
+    <title>Mesto: базовая функциональность</title>
+</head>
+
+<body class="root">
+    <header class="header">
+        <img class="header__logo" src="./images/header-logo.svg" alt="Логотип Место">
+    </header>
+    <main class="content">
+        <section class="profile">
+            <img class="profile__image" src="./images/profile-avatar.jpg" alt="аватар профиля">
+            <div class="profile__info">
+                <h1 class="profile__name">Жак-Ив Кусто</h1>
+                <p class="profile__text">Исследователь океана</p>
+                <button type="button" class="profile__edit-button"></button>
+            </div>
+            <button type="button" class="profile__add-button">
+            </button>
+        </section>
+        <section class="elements">
+            <ul class="elements__list">
+                <li class="element">
+                    <img class="element__image" src="./images/elements-karacaevsk.jpg" alt="пейзажи Карачаевск">
+                    <div class="element__caption">
+                        <h1 class="element__title">Карачаевск</h1>
+                        <button type="button" class="element__like"></button>
+                    </div>
+                </li>
+                <li class="element">
+                    <img class="element__image" src="./images/elements-elbrus.jpg" alt="пейзажи Эльбрус">
+                    <div class="element__caption">
+                        <h1 class="element__title">Гора Эльбрус</h1>
+                        <button type="button" class="element__like"></button>
+                    </div>
+                </li>
+                <li class="element">
+                    <img class="element__image" src="./images/elements-dombay.jpg" alt="пейзажи Домбай">
+                    <div class="element__caption">
+                        <h1 class="element__title">Домбай</h1>
+                        <button type="button" class="element__like"></button>
+                    </div>
+                </li>
+                <li class="element">
+                    <img class="element__image" src="./images/elements-elbrus.jpg" alt="пейзажи Эльбрус">
+                    <div class="element__caption">
+                        <h1 class="element__title">Гора Эльбрус</h1>
+                        <button type="button" class="element__like"></button>
+                    </div>
+                </li>
+                <li class="element">
+                    <img class="element__image" src="./images/elements-dombay.jpg" alt="пейзажи Домбай">
+                    <div class="element__caption">
+                        <h1 class="element__title">Домбай</h1>
+                        <button type="button" class="element__like"></button>
+                    </div>
+                </li>
+                <li class="element">
+                    <img class="element__image" src="./images/elements-karacaevsk.jpg"
+                        alt="пейзажи Карачаево-Черкессия">
+                    <div class="element__caption">
+                        <h1 class="element__title">Карачаево-Черкессия</h1>
+                        <button type="button" class="element__like"></button>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </main>
+    <footer class="footer">
+        <p class="footer__copyright">&copy; 2022. Шмаков Александр</p>
+    </footer>
+    <div class="popup">
+        <div class="popup__container">
+            <button class="popup__closed" type="button"></button>
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <form class="popup__form" name="popup-form" action="#" method="post">
+                <input class="popup__input popup__input_name" type="text" name="user" placeholder="Имя">
+                <input class="popup__input popup__input_specialization" type="text" name="specialization"
+                    placeholder="Специальность">
+                <button class="popup__save-button" type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+    <script src="./scripts/script.js"></script>
+</body>
+
+</html>
