@@ -7,14 +7,15 @@ let popupSpec = document.querySelector('.popup__input_specialization');
 
 let profileName = document.querySelector('.profile__name');
 let profileText = document.querySelector('.profile__text');
+
 function openForm() {
-    popup.classList.add('popup__opened');
+    popup.classList.add('popup_opened');
     popupUser.value = profileName.textContent;
     popupSpec.value = profileText.textContent;
 }
 
 function closeForm() {
-    popup.classList.remove('popup__opened');
+    popup.classList.remove('popup_opened');
 }
 
 function formSaveResults(event) {
