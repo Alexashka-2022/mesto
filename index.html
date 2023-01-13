@@ -24,59 +24,15 @@
             </button>
         </section>
         <section class="elements">
-            <ul class="elements__list">
-                <li class="element">
-                    <img class="element__image" src="./images/elements-karacaevsk.jpg" alt="пейзажи Карачаевск">
-                    <div class="element__caption">
-                        <h2 class="element__title">Карачаевск</h2>
-                        <button type="button" class="element__like"></button>
-                    </div>
-                </li>
-                <li class="element">
-                    <img class="element__image" src="./images/elements-elbrus.jpg" alt="пейзажи Эльбрус">
-                    <div class="element__caption">
-                        <h2 class="element__title">Гора Эльбрус</h2>
-                        <button type="button" class="element__like"></button>
-                    </div>
-                </li>
-                <li class="element">
-                    <img class="element__image" src="./images/elements-dombay.jpg" alt="пейзажи Домбай">
-                    <div class="element__caption">
-                        <h2 class="element__title">Домбай</h2>
-                        <button type="button" class="element__like"></button>
-                    </div>
-                </li>
-                <li class="element">
-                    <img class="element__image" src="./images/elements-elbrus.jpg" alt="пейзажи Эльбрус">
-                    <div class="element__caption">
-                        <h2 class="element__title">Гора Эльбрус</h2>
-                        <button type="button" class="element__like"></button>
-                    </div>
-                </li>
-                <li class="element">
-                    <img class="element__image" src="./images/elements-dombay.jpg" alt="пейзажи Домбай">
-                    <div class="element__caption">
-                        <h2 class="element__title">Домбай</h2>
-                        <button type="button" class="element__like"></button>
-                    </div>
-                </li>
-                <li class="element">
-                    <img class="element__image" src="./images/elements-karacaevsk.jpg"
-                        alt="пейзажи Карачаево-Черкессия">
-                    <div class="element__caption">
-                        <h2 class="element__title">Карачаево-Черкессия</h2>
-                        <button type="button" class="element__like"></button>
-                    </div>
-                </li>
-            </ul>
+            <ul class="elements__list"></ul>
         </section>
     </main>
     <footer class="footer">
         <p class="footer__copyright">&copy; 2022. Шмаков Александр</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup_edit">
         <div class="popup__container">
-            <button class="popup__closed" type="button"></button>
+            <button class="popup__closed popup__closed-edit" type="button"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
             <form class="popup__form" name="popup-form" action="#" method="post">
                 <input class="popup__input popup__input_name" type="text" name="user" placeholder="Имя">
@@ -84,6 +40,38 @@
                     placeholder="Специальность">
                 <button class="popup__save-button" type="submit">Сохранить</button>
             </form>
+        </div>
+    </div>
+    <div class="popup popup_add">
+        <div class="popup__container">
+            <button class="popup__closed popup__closed-add" type="button"></button>
+            <h2 class="popup__title">Новое место</h2>
+            <form class="popup__form" name="add-form" action="#" method="post">
+                <input class="popup__input popup__input_place" type="text" name="input-place" placeholder="Название">
+                <input class="popup__input popup__input_link" type="text" name="input-link"
+                    placeholder="Ссылка на картинку">
+                <button class="popup__save-button" type="submit">Создать</button>
+            </form>
+        </div>
+    </div>
+    <template class="template-element">
+        <li class="element">
+            <button type="button" class="element__delete"></button>
+            <img class="element__image" src="./images/elements-karacaevsk.jpg" alt="пейзажи Карачаевск">
+            <div class="element__caption">
+                <h2 class="element__title">Карачаевск</h2>
+                <button type="button" class="element__like"></button>
+            </div>
+        </li>
+    </template>
+
+    <div class="popup popup_scale">
+        <div class="popup__container-big">
+            <button class="popup__closed popup__closed-image" type="button"></button>
+            <figure class="popup__image-wrapper">
+                <img class="popup__image" src="#" alt="">
+                <figcaption class="popup__image-title"></figcaption>
+            </figure>
         </div>
     </div>
     <script src="./scripts/script.js"></script>

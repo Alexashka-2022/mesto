@@ -1,4 +1,4 @@
-.popup__closed {
+.popup__closed-image {
     width: 32px;
     height: 32px;
     position: absolute;
@@ -12,16 +12,16 @@
     top: -40px;
 }
 
-.popup__closed:hover {
+.popup__closed-image:hover {
     opacity: 0.6;
 }
 
 @media screen and (max-width: 400px) {
-    .popup__closed {
+    .popup__closed-image {
         width: 20px;
         height: 20px;
-        left: 260px;
         top: -36px;
+        left: 220px;
         background-size: 20px 20px;
     }
 }
