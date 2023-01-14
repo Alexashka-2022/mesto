@@ -40,6 +40,7 @@ function formSaveResults(event) {
   closeForm(popupEdit);
 }
 
+/*Функция добавления карточек*/
 function embedCard(targetElement) {
   elementsList.prepend(targetElement);
 }
@@ -47,7 +48,7 @@ function embedCard(targetElement) {
 /*Функция первоначальной отрисовки фотографий*/
 function initialCurrentCards() {
   initialCards.reverse().forEach(item => {
-    let newElement = createNewCard(item.name, item.link);
+    const newElement = createNewCard(item.name, item.link);
     embedCard(newElement); 
   });
 }
