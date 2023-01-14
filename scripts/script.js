@@ -1,26 +1,26 @@
-let popupEdit = document.querySelector('.popup_edit');
-let popupCloseEdit = popupEdit.querySelector('.popup__closed');
-let popupFormEdit = popupEdit.querySelector('.popup__form');
-let popupEditButton = document.querySelector('.profile__edit-button');
-let popupUser = popupEdit.querySelector('.popup__input_name');
-let popupSpec = popupEdit.querySelector('.popup__input_specialization');
-let profileName = document.querySelector('.profile__name');
-let profileText = document.querySelector('.profile__text');
+const popupEdit = document.querySelector('.popup_edit');
+const popupCloseEdit = popupEdit.querySelector('.popup__closed');
+const popupFormEdit = popupEdit.querySelector('.popup__form');
+const popupEditButton = document.querySelector('.profile__edit-button');
+const popupUser = popupEdit.querySelector('.popup__input_name');
+const popupSpec = popupEdit.querySelector('.popup__input_specialization');
+const profileName = document.querySelector('.profile__name');
+const profileText = document.querySelector('.profile__text');
 
-let popupAdd = document.querySelector('.popup_add');
-let popupCloseAdd = popupAdd.querySelector('.popup__closed');
-let popupFormAdd = popupAdd.querySelector('.popup__form');
-let popupAddButton = document.querySelector('.profile__add-button');
-let popupTitle = document.querySelector('.popup__input_place');
-let popupLink = document.querySelector('.popup__input_link');
+const popupAdd = document.querySelector('.popup_add');
+const popupCloseAdd = popupAdd.querySelector('.popup__closed');
+const popupFormAdd = popupAdd.querySelector('.popup__form');
+const popupAddButton = document.querySelector('.profile__add-button');
+const popupTitle = document.querySelector('.popup__input_place');
+const popupLink = document.querySelector('.popup__input_link');
 
-let popupScale = document.querySelector('.popup_scale');
-let popupCloseScale = popupScale.querySelector('.popup__closed-image');
-let popupImage = popupScale.querySelector('.popup__image');
-let popupImageTitle = popupScale.querySelector('.popup__image-title');
+const popupScale = document.querySelector('.popup_scale');
+const popupCloseScale = popupScale.querySelector('.popup__closed-image');
+const popupImage = popupScale.querySelector('.popup__image');
+const popupImageTitle = popupScale.querySelector('.popup__image-title');
 
-let elementsList = document.querySelector('.elements__list');
-let templateElement = document.querySelector('.template-element').content;
+const elementsList = document.querySelector('.elements__list');
+const templateElement = document.querySelector('.template-element').content;
 
 /*Функция открытия формы*/
 function openForm(popupName) {
@@ -40,39 +40,15 @@ function formSaveResults(event) {
   closeForm(popupEdit);
 }
 
-/*Набор стартовых изображений на странице*/
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+function embedCard(targetElement) {
+  elementsList.prepend(targetElement);
+}
 
 /*Функция первоначальной отрисовки фотографий*/
 function initialCurrentCards() {
-  initialCards.forEach(item => {
+  initialCards.reverse().forEach(item => {
     let newElement = createNewCard(item.name, item.link);
-    elementsList.append(newElement);
+    embedCard(newElement); 
   });
 }
 
@@ -80,12 +56,11 @@ initialCurrentCards();
 
 /*Функция отрисовки новой фотографии на странице*/
 function createNewCard(imageName, imageLink) {
-  let templateItem = templateElement.cloneNode(true);
-  let imgObject = templateItem.querySelector('.element__image');
-  let imgTitle = templateItem.querySelector('.element__title');
-  let buttonDelete = templateItem.querySelector('.element__delete');
-  let buttonLike = templateItem.querySelector('.element__like');
-
+  const templateItem = templateElement.cloneNode(true);
+  const imgObject = templateItem.querySelector('.element__image');
+  const imgTitle = templateItem.querySelector('.element__title');
+  const buttonDelete = templateItem.querySelector('.element__delete');
+  const buttonLike = templateItem.querySelector('.element__like');
 
   imgTitle.textContent = imageName;
   imgObject.src = imageLink;
@@ -118,8 +93,8 @@ function deleteCard(event) {
 /* Функция записи новой картинки*/
 function formSaveNewCard(event) {
   event.preventDefault();
-  newTemplate = createNewCard(popupTitle.value, popupLink.value)
-  elementsList.prepend(newTemplate);
+  newTemplate = createNewCard(popupTitle.value, popupLink.value);
+  embedCard(newTemplate); 
   closeForm(popupAdd);
 }
 
