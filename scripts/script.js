@@ -18,6 +18,7 @@ const popupScale = document.querySelector('.popup_scale');
 const popupCloseScale = popupScale.querySelector('.popup__closed-image');
 const popupImage = popupScale.querySelector('.popup__image');
 const popupImageTitle = popupScale.querySelector('.popup__image-title');
+const popups = document.querySelectorAll('.popup');
 
 const elementsList = document.querySelector('.elements__list');
 const templateElement = document.querySelector('.template-element').content;
@@ -25,11 +26,13 @@ const templateElement = document.querySelector('.template-element').content;
 /*Функция открытия формы*/
 function openForm(popupName) {
   popupName.classList.add('popup_opened');
+  document.addEventListener('keydown', closeScaleImageClickEsc);
 }
 
 /*Функция закрытия формы*/
 function closeForm(popupName) {
   popupName.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeScaleImageClickEsc);
 }
 
 /*Функция записи результов редактирования*/
@@ -49,7 +52,7 @@ function embedCard(targetElement) {
 function initialCurrentCards() {
   initialCards.reverse().forEach(item => {
     const newElement = createNewCard(item.name, item.link);
-    embedCard(newElement); 
+    embedCard(newElement);
   });
 }
 
@@ -95,11 +98,11 @@ function deleteCard(event) {
 function formSaveNewCard(event) {
   event.preventDefault();
   newTemplate = createNewCard(popupTitle.value, popupLink.value);
-  embedCard(newTemplate); 
+  embedCard(newTemplate);
   closeForm(popupAdd);
 }
 
-/*Функция открытия увеличенного изображения*/
+/*Функция открытия попапа просмотра изображения*/
 function openScaleImage(imgName, imgLink) {
   popupImage.src = imgLink;
   popupImage.alt = imgName;
@@ -107,12 +110,37 @@ function openScaleImage(imgName, imgLink) {
   openForm(popupScale);
 }
 
-/*Обработчик открытия формы редактирования элемента*/
-popupEditButton.addEventListener('click', () => {
-  openForm(popupEdit);
+/*Функция закрытия попапа по нажатию кнопки ESC*/
+function closeScaleImageClickEsc(event) {
+  if (event.key === "Escape") {
+    const activePopup = document.querySelector('.popup_opened');
+    closeForm(activePopup);
+  }
+}
+
+/*Функция закрытия попапа кликом по overlay*/
+function closePopupClickOnOverlay() {
+  popups.forEach((elementPopup) => {
+    elementPopup.addEventListener('mousedown', (event) => {
+      if (event.target.classList.contains('popup')) {
+        closeForm(elementPopup);
+      }
+    });
+  });
+}
+
+closePopupClickOnOverlay();
+
+/* Функция открытия формы редактирования*/
+function openEditPopup() {
   popupUser.value = profileName.textContent;
   popupSpec.value = profileText.textContent;
-});
+  enableEventListeners(popupEdit, validationOptions);
+  openForm(popupEdit);
+}
+
+/*Обработчик открытия формы редактирования элемента*/
+popupEditButton.addEventListener('click', openEditPopup);
 
 /*Обработчик закрытия формы редактирования элемента*/
 popupCloseEdit.addEventListener('click', () => {
@@ -122,12 +150,16 @@ popupCloseEdit.addEventListener('click', () => {
 /*Обработчик записи формы редактирования*/
 popupFormEdit.addEventListener('submit', formSaveResults);
 
-/*Обработчик открытия формы добавления элемента*/
-popupAddButton.addEventListener('click', () => {
-  openForm(popupAdd);
+/* Функция открытия формы добавления элемента*/
+function openAddPopup() {
   popupTitle.value = '';
   popupLink.value = '';
-});
+  enableEventListeners(popupAdd, validationOptions);
+  openForm(popupAdd);
+}
+
+/*Обработчик открытия формы добавления элемента*/
+popupAddButton.addEventListener('click', openAddPopup);
 
 /*Обработчик закрытия формы добавления элемента*/
 popupCloseAdd.addEventListener('click', () => {
