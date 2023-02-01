@@ -1,4 +1,4 @@
-const validationOptions= {
+const validationOptions = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__save-button',
@@ -37,17 +37,17 @@ function disableButton(buttonElement, options) {
 
 /*Функция проверки формы на валидность*/
 function hasInvalidInput(inputList) {
-  return inputList.some((inputItem) => { 
+  return inputList.some((inputItem) => {
     return !inputItem.validity.valid;
   });
-}; 
+};
 
 /*Функция переключения состояния кнопки на форме*/
 function toggleButton(inputList, button, options) {
   if (hasInvalidInput(inputList)) {
     disableButton(button, options);
   } else {
-    enableButton(button, options); 
+    enableButton(button, options);
   }
 };
 
@@ -65,8 +65,13 @@ function enableEventListeners(form, options) {
   const inputList = Array.from(form.querySelectorAll(options.inputSelector));
   const buttonSubmit = form.querySelector(options.submitButtonSelector);
   toggleButton(inputList, buttonSubmit, options);
+  form.addEventListener('reset', (event) => {
+    setTimeout(() => {
+      toggleButton(inputList, buttonSubmit, options);
+    }, 0);
+  });
   inputList.forEach((inputItem) => {
-    inputItem.addEventListener('input',() => {
+    inputItem.addEventListener('input', () => {
       checkValidity(form, inputItem, options);
       toggleButton(inputList, buttonSubmit, options);
     });
