@@ -13,6 +13,7 @@ const popupFormAdd = popupAdd.querySelector('.popup__form');
 const popupAddButton = document.querySelector('.profile__add-button');
 const popupTitle = document.querySelector('.popup__input_place');
 const popupLink = document.querySelector('.popup__input_link');
+const popupAddSubmit = popupAdd.querySelector('.popup__save-button')
 
 const popupScale = document.querySelector('.popup_scale');
 const popupCloseScale = popupScale.querySelector('.popup__closed-image');
@@ -22,6 +23,15 @@ const popups = document.querySelectorAll('.popup');
 
 const elementsList = document.querySelector('.elements__list');
 const templateElement = document.querySelector('.template-element').content;
+
+/*Функция заполняет значения полей ввода для попапа редактивания,
+чтобы валидация прошла после заполнения полей*/
+function loadInputValue() {
+  popupUser.value = profileName.textContent;
+  popupSpec.value = profileText.textContent;
+}
+
+loadInputValue();
 
 /*Функция открытия вслывающего окна*/
 function openPopup(popupName) {
@@ -119,24 +129,8 @@ function handleEscapeClick(event) {
   }
 }
 
-/*Функция закрытия попапа кликом по overlay*/
-function closePopupClickOnOverlay() {
-  popups.forEach((elementPopup) => {
-    elementPopup.addEventListener('mousedown', (event) => {
-      if (event.target.classList.contains('popup')) {
-        closePopup(elementPopup);
-      }
-    });
-  });
-}
-
-closePopupClickOnOverlay();
-
 /* Функция открытия формы редактирования*/
 function openEditPopup() {
-  popupFormEdit.reset();
-  popupUser.value = profileName.textContent;
-  popupSpec.value = profileText.textContent;
   openPopup(popupEdit);
 }
 
