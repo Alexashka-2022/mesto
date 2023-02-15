@@ -4,7 +4,7 @@ import { FormValidator } from "./FormValidator.js";
 
 const popupEdit = document.querySelector('.popup_edit');
 const popupCloseEdit = popupEdit.querySelector('.popup__closed');
-const popupFormEdit = popupEdit.querySelector('.popup__form');
+const popupFormEdit = document.forms["edit-form"];
 const popupEditButton = document.querySelector('.profile__edit-button');
 const popupUser = popupEdit.querySelector('.popup__input_name');
 const popupSpec = popupEdit.querySelector('.popup__input_specialization');
@@ -13,7 +13,7 @@ const profileText = document.querySelector('.profile__text');
 
 const popupAdd = document.querySelector('.popup_add');
 const popupCloseAdd = popupAdd.querySelector('.popup__closed');
-const popupFormAdd = popupAdd.querySelector('.popup__form');
+const popupFormAdd = document.forms["add-form"];
 const popupAddButton = document.querySelector('.profile__add-button');
 const popupTitle = document.querySelector('.popup__input_place');
 const popupLink = document.querySelector('.popup__input_link');
@@ -40,12 +40,12 @@ const validationOptions = {
 
 /*Функция заполняет значения полей ввода для попапа редактивания,
 чтобы валидация прошла после заполнения полей*/
-function loadInputValue() {
+function fillProfileInputs() {
   popupUser.value = profileName.textContent;
   popupSpec.value = profileText.textContent;
 }
 
-loadInputValue();
+fillProfileInputs();
 
 /*Функция открытия вслывающего окна*/
 function openPopup(popupName) {

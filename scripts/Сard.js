@@ -5,6 +5,9 @@ export class Card {
         this._name = name;
         this._link = link;
         this._templateSelector = templateSelector;
+        this._element = this._getTemlate();
+        this._imgObject = this._element.querySelector('.element__image');
+        this._imgTitle = this._element.querySelector('.element__title');
     };
 
     _getTemlate() {
@@ -27,21 +30,17 @@ export class Card {
     _setEventListeners() {
         this._element.querySelector('.element__delete').addEventListener('click', this._deleteCard);
         this._element.querySelector('.element__like').addEventListener('click', this._toggleLike);
-        this._element.querySelector('.element__image').addEventListener('click', () => {
+        this._imgObject.addEventListener('click', () => {
             openScaleImage(this._name, this._link);
         });
     }
 
     /*Метод класса для отрисовки новых фотографий на странице*/
     createNewCard() {
-        this._element = this._getTemlate();
-        const imgObject = this._element.querySelector('.element__image');
-        const imgTitle = this._element.querySelector('.element__title');
 
-        imgObject.setAttribute("src", this._link);
-        imgObject.setAttribute("alt", this._name);
-        imgTitle.textContent = this._name;
-
+        this._imgObject.setAttribute("src", this._link);
+        this._imgObject.setAttribute("alt", this._name);
+        this._imgTitle.textContent = this._name;
 
         this._setEventListeners();
 

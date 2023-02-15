@@ -77,10 +77,7 @@ export class FormValidator {
 
     /*Метод получения формы*/
     enableValidation() {
-        const formList = Array.from(this._formElement.querySelectorAll(this._options.formSelector));
-        formList.forEach((form) => {
-            this._enableEventListeners();
-        });
+        this._enableEventListeners();
     };
 
 }
