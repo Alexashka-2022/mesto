@@ -1,3 +1,7 @@
+import { initialCards } from "./initial-cards.js";
+import { Card } from "./Сard.js";
+import { FormValidator } from "./FormValidator.js";
+
 const popupEdit = document.querySelector('.popup_edit');
 const popupCloseEdit = popupEdit.querySelector('.popup__closed');
 const popupFormEdit = popupEdit.querySelector('.popup__form');
@@ -23,6 +27,16 @@ const popups = document.querySelectorAll('.popup');
 
 const elementsList = document.querySelector('.elements__list');
 const templateElement = document.querySelector('.template-element').content;
+
+/*Опции, необходимые для валидации*/
+const validationOptions = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
 
 /*Функция заполняет значения полей ввода для попапа редактивания,
 чтобы валидация прошла после заполнения полей*/
@@ -61,8 +75,7 @@ function prependCard(targetElement) {
 /*Функция первоначальной отрисовки фотографий*/
 function renderInitialCards(event) {
   initialCards.reverse().forEach(item => {
-    const newElement = createNewCard(item.name, item.link);
-    prependCard(newElement);
+    prependCard(createNewCard(item.name, item.link));
   });
 }
 
@@ -70,51 +83,19 @@ renderInitialCards();
 
 /*Функция отрисовки новой фотографии на странице*/
 function createNewCard(imageName, imageLink) {
-  const templateItem = templateElement.cloneNode(true);
-  const imgObject = templateItem.querySelector('.element__image');
-  const imgTitle = templateItem.querySelector('.element__title');
-  const buttonDelete = templateItem.querySelector('.element__delete');
-  const buttonLike = templateItem.querySelector('.element__like');
-
-  imgTitle.textContent = imageName;
-  imgObject.src = imageLink;
-  imgObject.alt = imageName;
-
-  /*Обработчик удаления картинок*/
-  buttonDelete.addEventListener('click', deleteCard);
-
-  /*Обработчик кнопки "Like" */
-  buttonLike.addEventListener('click', toggleLike);
-
-  /*Обработчик открытия увеличенного изображения*/
-  imgObject.addEventListener('click', () => {
-    openScaleImage(imgTitle.textContent, imgObject.src);
-  });
-
-  return templateItem;
-}
-
-/* Функция установки лайка на картинку*/
-function toggleLike(event) {
-  event.target.classList.toggle('element__like_active');
-}
-
-/*Функция удаления картинки*/
-function deleteCard(event) {
-  event.target.closest('.element').remove();
+  return (new Card(imageName, imageLink, ".template-element").createNewCard());
 }
 
 /* Функция записи новой картинки*/
 function handleSaveNewCard(event) {
   event.preventDefault();
-  const newTemplate = createNewCard(popupTitle.value, popupLink.value);
-  prependCard(newTemplate);
+  prependCard(createNewCard(popupTitle.value, popupLink.value));
   closePopup(popupAdd);
   event.target.reset();
 }
 
 /*Функция открытия попапа просмотра изображения*/
-function openScaleImage(imgName, imgLink) {
+export function openScaleImage(imgName, imgLink) {
   popupImage.src = imgLink;
   popupImage.alt = imgName;
   popupImageTitle.textContent = imgName;
@@ -168,5 +149,13 @@ popupAddButton.addEventListener('click', openAddPopup);
 
 /*Обработчик записи нового элемента*/
 popupFormAdd.addEventListener('submit', handleSaveNewCard);
+
+/*Запуск валидации попапа редактирования*/
+const popupEditValidator = new FormValidator(validationOptions, popupEdit);
+popupEditValidator.enableValidation();
+
+/*Запуск валидации попапа добавления картинок*/
+const popupAddValidator = new FormValidator(validationOptions, popupAdd);
+popupAddValidator.enableValidation();
 
 closeAllPopups();

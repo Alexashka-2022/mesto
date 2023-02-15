@@ -1,0 +1,86 @@
+export class FormValidator {
+    constructor(options, formElement) {
+        this._options = options;
+        this._formElement = formElement;
+        this._buttonSubmit = formElement.querySelector(options.submitButtonSelector);
+    };
+
+    /*Метод отображает сообщения об ошибке*/
+    _enableShowError(input, errorMessage) {
+        const error = this._formElement.querySelector(`#${input.id}-error`);
+        input.classList.add(this._options.inputErrorClass);
+        error.classList.add(this._options.errorClass);
+        error.textContent = errorMessage;
+    }
+
+    /*Метод убирает сообщения об ошибке*/
+    _disableShowError(input) {
+        const error = this._formElement.querySelector(`#${input.id}-error`);
+        input.classList.remove(this._options.inputErrorClass);
+        error.classList.remove(this._options.errorClass);
+        error.textContent = '';
+    };
+
+    /*Метод включает доступность кнопки подтверждения*/
+    _enableButton() {
+        this._buttonSubmit.classList.remove(this._options.inactiveButtonClass);
+        this._buttonSubmit.removeAttribute('disabled', false);
+    };
+
+    /*Метод отключает доступность кнопки подтверждения*/
+    _disableButton() {
+        this._buttonSubmit.classList.add(this._options.inactiveButtonClass);
+        this._buttonSubmit.setAttribute('disabled', true);
+    };
+
+    /*Метод проверки формы на валидность*/
+    _hasInvalidInput(inputList) {
+        return inputList.some((inputItem) => {
+            return !inputItem.validity.valid;
+        });
+    };
+
+    /*Метод переключения состояния кнопки на форме*/
+    _toggleButton(inputList) {
+        if (this._hasInvalidInput(inputList)) {
+            this._disableButton();
+        } else {
+            this._enableButton();
+        }
+    };
+
+    /* Метод проверки на валидность*/
+    _checkValidity(input) {
+        if (!input.validity.valid) {
+            this._enableShowError(input, input.validationMessage);
+        } else {
+            this._disableShowError(input);
+        }
+    };
+
+    /*Метод добавления обработчиков*/
+    _enableEventListeners() {
+        const inputList = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
+        this._toggleButton(inputList);
+        this._formElement.addEventListener('reset', (event) => {
+            setTimeout(() => {
+                this._toggleButton(inputList);
+            }, 0);
+        });
+        inputList.forEach((inputItem) => {
+            inputItem.addEventListener('input', () => {
+                this._checkValidity(inputItem);
+                this._toggleButton(inputList);
+            });
+        });
+    };
+
+    /*Метод получения формы*/
+    enableValidation() {
+        const formList = Array.from(this._formElement.querySelectorAll(this._options.formSelector));
+        formList.forEach((form) => {
+            this._enableEventListeners();
+        });
+    };
+
+}
