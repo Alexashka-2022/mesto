@@ -3,6 +3,7 @@ export class FormValidator {
         this._options = options;
         this._formElement = formElement;
         this._buttonSubmit = formElement.querySelector(options.submitButtonSelector);
+        this._inputList = Array.from(formElement.querySelectorAll(options.inputSelector));
     };
 
     /*Метод отображает сообщения об ошибке*/
@@ -60,17 +61,17 @@ export class FormValidator {
 
     /*Метод добавления обработчиков*/
     _enableEventListeners() {
-        const inputList = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
-        this._toggleButton(inputList);
+        
+        this._toggleButton(this._inputList);
         this._formElement.addEventListener('reset', (event) => {
             setTimeout(() => {
-                this._toggleButton(inputList);
+                this._toggleButton(this._inputList);
             }, 0);
         });
-        inputList.forEach((inputItem) => {
+        this._inputList.forEach((inputItem) => {
             inputItem.addEventListener('input', () => {
                 this._checkValidity(inputItem);
-                this._toggleButton(inputList);
+                this._toggleButton(this._inputList);
             });
         });
     };
@@ -78,6 +79,15 @@ export class FormValidator {
     /*Метод получения формы*/
     enableValidation() {
         this._enableEventListeners();
+    };
+
+    /* Метод для сброса валидации*/
+    resetValidation() {
+        this._toggleButton(this._inputList)
+
+        this._inputList.forEach((inputElement) => {
+            this._disableShowError(inputElement);
+        });
     };
 
 }

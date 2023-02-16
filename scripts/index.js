@@ -51,6 +51,8 @@ fillProfileInputs();
 function openPopup(popupName) {
   popupName.classList.add('popup_opened');
   document.addEventListener('keydown', handleEscapeClick);
+  formValidators['edit-form'].resetValidation();
+  formValidators['add-form'].resetValidation();
 }
 
 /*Функция закрытия всплывающего окна*/
@@ -150,12 +152,19 @@ popupAddButton.addEventListener('click', openAddPopup);
 /*Обработчик записи нового элемента*/
 popupFormAdd.addEventListener('submit', handleSaveNewCard);
 
-/*Запуск валидации попапа редактирования*/
-const popupEditValidator = new FormValidator(validationOptions, popupEdit);
-popupEditValidator.enableValidation();
+const formValidators = {}
 
-/*Запуск валидации попапа добавления картинок*/
-const popupAddValidator = new FormValidator(validationOptions, popupAdd);
-popupAddValidator.enableValidation();
+/*Включение валидации*/
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement)
+    const formName = formElement.getAttribute('name')
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(validationOptions);
 
 closeAllPopups();
