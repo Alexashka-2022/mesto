@@ -51,8 +51,6 @@ fillProfileInputs();
 function openPopup(popupName) {
   popupName.classList.add('popup_opened');
   document.addEventListener('keydown', handleEscapeClick);
-  formValidators['edit-form'].resetValidation();
-  formValidators['add-form'].resetValidation();
 }
 
 /*Функция закрытия всплывающего окна*/
@@ -94,6 +92,7 @@ function handleSaveNewCard(event) {
   prependCard(createNewCard(popupTitle.value, popupLink.value));
   closePopup(popupAdd);
   event.target.reset();
+  formValidators['add-form'].resetValidation();
 }
 
 /*Функция открытия попапа просмотра изображения*/
@@ -115,6 +114,7 @@ function handleEscapeClick(event) {
 /* Функция открытия формы редактирования*/
 function openEditPopup() {
   openPopup(popupEdit);
+  formValidators['edit-form'].resetValidation();
 }
 
 /* Функция открытия формы добавления элемента*/
