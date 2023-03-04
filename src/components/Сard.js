@@ -1,13 +1,12 @@
-import { openScaleImage } from "./index.js";
-
-export class Card {
-    constructor(name, link, templateSelector) {
-        this._name = name;
-        this._link = link;
+export default class Card {
+    constructor(data, templateSelector, handleCardClick) {
+        this._name = data.name;
+        this._link = data.link;
         this._templateSelector = templateSelector;
         this._element = this._getTemlate();
         this._imgObject = this._element.querySelector('.element__image');
         this._imgTitle = this._element.querySelector('.element__title');
+        this._handleCardClick = handleCardClick;
     };
 
     _getTemlate() {
@@ -30,14 +29,11 @@ export class Card {
     _setEventListeners() {
         this._element.querySelector('.element__delete').addEventListener('click', this._deleteCard);
         this._element.querySelector('.element__like').addEventListener('click', this._toggleLike);
-        this._imgObject.addEventListener('click', () => {
-            openScaleImage(this._name, this._link);
-        });
+        this._imgObject.addEventListener('click',this._handleCardClick);
     }
 
     /*Метод класса для отрисовки новых фотографий на странице*/
     createNewCard() {
-
         this._imgObject.setAttribute("src", this._link);
         this._imgObject.setAttribute("alt", this._name);
         this._imgTitle.textContent = this._name;

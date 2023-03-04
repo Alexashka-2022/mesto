@@ -4,17 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Mesto: базовая функциональность</title>
 </head>
 
 <body class="root">
     <header class="header">
-        <img class="header__logo" src="./images/header-logo.svg" alt="Логотип Место">
+        <img class="header__logo" src="<%=require('./images/header-logo.svg')%>" alt="Логотип Место">
     </header>
     <main class="content">
         <section class="profile">
-            <img class="profile__image" src="./images/profile-avatar.jpg" alt="аватар профиля">
+            <img class="profile__image" src="<%=require('./images/profile-avatar.jpg')%>" alt="аватар профиля">
             <div class="profile__info">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
                 <p class="profile__text">Исследователь океана</p>
@@ -80,7 +79,6 @@
             </figure>
         </div>
     </div>
-    <script type="module" src="./scripts/index.js"></script>
 </body>
 
 </html>
