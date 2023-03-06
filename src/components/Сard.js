@@ -4,9 +4,10 @@ export default class Card {
         this._link = data.link;
         this._templateSelector = templateSelector;
         this._element = this._getTemlate();
+        this._buttonLike = this._element.querySelector('.element__like');
         this._imgObject = this._element.querySelector('.element__image');
         this._imgTitle = this._element.querySelector('.element__title');
-        this._handleCardClick = handleCardClick;
+        this._handleCardClick = handleCardClick.handleCardClick;
     };
 
     _getTemlate() {
@@ -18,18 +19,22 @@ export default class Card {
 
     /* Метод класса для удаления картинки*/
     _deleteCard(event) {
-        event.target.closest('.element').remove();
+        this._element.remove();
+        this._element = null;
     }
 
     /* Метод класса для установки лайка на картинку*/
-    _toggleLike(event) {
-        event.target.classList.toggle('element__like_active');
+    _toggleLike() {
+        this._buttonLike.classList.toggle('element__like_active');
     }
 
     _setEventListeners() {
-        this._element.querySelector('.element__delete').addEventListener('click', this._deleteCard);
-        this._element.querySelector('.element__like').addEventListener('click', this._toggleLike);
-        this._imgObject.addEventListener('click',this._handleCardClick);
+        this._element.querySelector('.element__delete').addEventListener('click', () =>
+            this._deleteCard());
+        this._buttonLike.addEventListener('click', () =>
+            this._toggleLike());
+        this._imgObject.addEventListener('click', () =>
+            this._handleCardClick());
     }
 
     /*Метод класса для отрисовки новых фотографий на странице*/

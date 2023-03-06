@@ -42,8 +42,8 @@ export default class FormValidator {
     };
 
     /*Метод переключения состояния кнопки на форме*/
-    _toggleButton(inputList) {
-        if (this._hasInvalidInput(inputList)) {
+    _toggleButton() {
+        if (this._hasInvalidInput(this._inputList)) {
             this._disableButton();
         } else {
             this._enableButton();
@@ -62,16 +62,16 @@ export default class FormValidator {
     /*Метод добавления обработчиков*/
     _enableEventListeners() {
         
-        this._toggleButton(this._inputList);
+        this._toggleButton();
         this._formElement.addEventListener('reset', (event) => {
             setTimeout(() => {
-                this._toggleButton(this._inputList);
+                this._toggleButton();
             }, 0);
         });
         this._inputList.forEach((inputItem) => {
             inputItem.addEventListener('input', () => {
                 this._checkValidity(inputItem);
-                this._toggleButton(this._inputList);
+                this._toggleButton();
             });
         });
     };
@@ -83,7 +83,7 @@ export default class FormValidator {
 
     /* Метод для сброса валидации*/
     resetValidation() {
-        this._toggleButton(this._inputList)
+        this._toggleButton();
 
         this._inputList.forEach((inputElement) => {
             this._disableShowError(inputElement);

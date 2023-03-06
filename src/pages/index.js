@@ -8,18 +8,14 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import {
   initialCards,
   validationOptions,
-  popupEdit,
   popupEditButton,
   popupUser,
   popupSpec,
   profileName,
   profileText,
-  popupAdd,
   popupAddButton,
   popupTitle,
-  popupLink,
-  popupScale,
-  elementsList
+  popupLink
 } from "../utils/constants.js";
 
 const profileOptions = new UserInfo(
@@ -35,33 +31,26 @@ const cardsList = new Section(
       const cardItem = createNewCard(item);
       cardsList.addItem(cardItem);
     },
-  }, elementsList
+  }, '.elements__list'
 );
 
-const popupEditProfile = new PopupWithForm(popupEdit, () => {
-  profileOptions.setUserInfo({
-    userName: popupUser.value,
-    userData: popupSpec.value
-  });
+const popupEditProfile = new PopupWithForm('.popup_edit', (data) => { 
+  profileOptions.setUserInfo(data); 
 });
 
-const popupAddCard = new PopupWithForm(popupAdd, () => {
-  cardsList.addItem(createNewCard({
-    name: popupTitle.value,
-    link: popupLink.value
-  }));
-  formValidators['add-form'].resetValidation();
+const popupAddCard = new PopupWithForm('.popup_add', (data) => {
+  cardsList.addItem(createNewCard(data));
+  
 });
 
-const popupImageScale = new PopupWithImage(popupScale);
-
-function handleCardClick(event) {
-  popupImageScale.open(event.target);
-}
+const popupImageScale = new PopupWithImage('.popup_scale');
 
 /*Функция отрисовки новой фотографии на странице*/
 function createNewCard(imageElement) {
-  return (new Card(imageElement, ".template-element", handleCardClick).createNewCard());
+  return (new Card(imageElement, ".template-element", {
+    handleCardClick: () =>
+      popupImageScale.open(imageElement)
+  }).createNewCard());
 }
 
 const formValidators = {}
@@ -79,7 +68,7 @@ const enableValidation = (config) => {
 
 enableValidation(validationOptions);
 
-cardsList.renderInitialItems();
+cardsList.rendererItems();
 
 popupEditProfile.setEventListeners();
 
@@ -98,6 +87,7 @@ popupEditButton.addEventListener('click', () => {
 
 /*Обработчик открытия добавления добавления элемента*/
 popupAddButton.addEventListener('click', () => {
+  formValidators['add-form'].resetValidation();
   popupAddCard.open();
 });
 
