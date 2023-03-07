@@ -20,8 +20,8 @@ import {
 
 const profileOptions = new UserInfo(
   {
-    userName: profileName,
-    userData: profileText
+    userName: '.profile__name',
+    userData: '.profile__text'
   });
 
 const cardsList = new Section(

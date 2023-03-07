@@ -4,6 +4,10 @@
     margin-top: 5px;
 }
 
+.popup__error_visible:first-of-type {
+    margin-bottom: 13px;
+}
+
 .popup__error_visible:last-of-type {
     margin-bottom: 32px;
 }
