@@ -61,7 +61,7 @@ export default class FormValidator {
 
     /*Метод добавления обработчиков*/
     _enableEventListeners() {
-        
+
         this._toggleButton();
         this._inputList.forEach((inputItem) => {
             inputItem.addEventListener('input', () => {

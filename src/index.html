@@ -13,7 +13,9 @@
     </header>
     <main class="content">
         <section class="profile">
-            <img class="profile__image" src="<%=require('./images/profile-avatar.jpg')%>" alt="аватар профиля">
+            <div class="profile__image">
+                <button type="button" class="profile__image-edit"></button>
+            </div>
             <div class="profile__info">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
                 <p class="profile__text">Исследователь океана</p>
@@ -29,6 +31,8 @@
     <footer class="footer">
         <p class="footer__copyright">&copy; 2022. Шмаков Александр</p>
     </footer>
+
+    <!---Попап редактирования полей карточки-->
     <div class="popup popup_edit">
         <div class="popup__container">
             <button class="popup__closed popup__closed-edit" type="button"></button>
@@ -44,13 +48,15 @@
             </form>
         </div>
     </div>
+
+    <!---Попап добавления новой карточки-->
     <div class="popup popup_add">
         <div class="popup__container">
             <button class="popup__closed popup__closed-add" type="button"></button>
             <h2 class="popup__title">Новое место</h2>
             <form class="popup__form" name="add-form" action="#" method="post" novalidate>
-                <input class="popup__input popup__input_place" type="text" id="place" name="name"
-                    placeholder="Название" minlength="2" maxlength="30" required>
+                <input class="popup__input popup__input_place" type="text" id="place" name="name" placeholder="Название"
+                    minlength="2" maxlength="30" required>
                 <span class="popup__error" id="place-error"></span>
                 <input class="popup__input popup__input_link" type="url" id="link" name="link"
                     placeholder="Ссылка на картинку" required>
@@ -65,11 +71,15 @@
             <img class="element__image" src="./images/elements-karacaevsk.jpg" alt="пейзажи Карачаевск">
             <div class="element__caption">
                 <h2 class="element__title">Карачаевск</h2>
-                <button type="button" class="element__like"></button>
+                <div class="element__likes">
+                    <button type="button" class="element__like"></button>
+                    <p class="element__likes-count"></p>
+                </div>
             </div>
         </li>
     </template>
 
+    <!---Попап вывода увеличенного изображения-->
     <div class="popup popup_scale">
         <div class="popup__container-big">
             <button class="popup__closed popup__closed-image" type="button"></button>
@@ -77,6 +87,31 @@
                 <img class="popup__image" src="#" alt="">
                 <figcaption class="popup__image-title"></figcaption>
             </figure>
+        </div>
+    </div>
+
+    <!---Попап подтверждения удаления карточки-->
+    <div class="popup popup_confirm">
+        <div class="popup__container">
+            <button class="popup__closed popup__closed-confirm"></button>
+            <h2 class="popup__title popup__title-confirm">Вы уверены?</h2>
+            <form class="popup__form" name="confirm-form" action="#" method="post" novalidate>
+                <button class="popup__save-button" type="submit">Да</button>
+            </form>
+        </div>
+    </div>
+
+    <!---Попап обновления аватара-->
+    <div class="popup popup_update">
+        <div class="popup__container">
+            <button class="popup__closed popup__closed-update"></button>
+            <h2 class="popup__title">Обновить аватар</h2>
+            <form class="popup__form" name="update-form" action="#" method="post" novalidate>
+                <input class="popup__input popup__input_avatar" type="url" id="avatar-link" name="avatar-link"
+                    placeholder="Ссылка на фото" required>
+                <span class="popup__error" id="avatar-link-error"></span>
+                <button class="popup__save-button" type="submit">Сохранить</button>
+            </form>
         </div>
     </div>
 </body>
