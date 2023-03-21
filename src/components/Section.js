@@ -9,9 +9,8 @@ export default class Section {
     }
 
     rendererItems(items, userId) {
-        this._initialItems = items;
         this._userId = userId;
-        this._initialItems.forEach((item) => {
+        items.forEach((item) => {
             this._renderer(item, userId);
         });
     }

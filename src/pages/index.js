@@ -33,12 +33,10 @@ const profileOptions = new UserInfo(
     userAvatar: '.profile__image'
   });
 
-let userId;
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userIdData, cardData]) => {
     profileOptions.setUserInfo(userIdData);
-    userId = userIdData._id;
     cardsList.rendererItems(cardData, userIdData._id);
   })
   .catch((err) => {
@@ -72,7 +70,7 @@ const popupAddCard = new PopupWithForm('.popup_add', (data) => {
   popupAddCard.showMessage("Сохранение...");
   api.addNewCard(data["name"], data["link"])
     .then((res) => {
-      cardsList.addItem(createNewCard(res, userId));
+      cardsList.addItem(createNewCard(res, res.owner._id));
       popupAddCard.close();
     })
     .catch((err) => {
@@ -175,7 +173,6 @@ popupEditButton.addEventListener('click', () => {
   const { userName, userData, userAvatar } = profileOptions.getUserInfo();
   popupUser.value = userName;
   popupSpec.value = userData;
-  profileImage.style.backgroundImage = userAvatar;
   formValidators['edit-form'].resetValidation();
 });
 
